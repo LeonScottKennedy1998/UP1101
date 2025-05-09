@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="catalog-header">
+    <h2>Товары с тегом: {{ tag.name }}</h2>
+    <a href="{% url 'tag_list' %}" class="btn honey-btn-outline">
+        <i class="fas fa-arrow-left"></i> Все теги
+    </a>
+</div>
+
+<div class="product-grid">
+    {% for product in products %}
+    <div class="product-item">
+        <div class="product-image-wrapper">
+            {% if product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+            {% else %}
+                <div class="no-image">Нет изображения</div>
+            {% endif %}
+        </div>
+        
+        <div class="product-info">
+            <h3 class="product-title">{{ product.name }}</h3>
+            <div class="product-meta">
+                <span class="product-price">
+                    {{ product.price }} ₽
+                </span>
+            </div>
+            
+            <p class="product-description">
+                {{ product.description|truncatechars:120 }}
+            </p>
+            
+            <div class="product-actions">
+                <a href="{% url 'product_detail' product.id %}" class="btn honey-btn">
+                    Подробнее <i class="fas fa-chevron-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <div class="empty-message">
+        <i class="fas fa-box-open"></i>
+        <p>Нет товаров с этим тегом</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

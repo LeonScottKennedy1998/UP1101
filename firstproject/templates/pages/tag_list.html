@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="tags-page-container">
+    <div class="tags-page-header">
+        <h2>Теги</h2>
+        <a href="{% url 'add_tag' %}" class="btn honey-btn">
+            <i class="fas fa-plus"></i> Добавить тег
+        </a>
+    </div>
+
+    <ul class="tags-page-list">
+        {% for tag in tags %}
+        <li class="tags-page-item">
+            <div class="tags-page-info">
+                <a href="{% url 'tag_products' tag.id %}" class="tags-page-link">
+                    <span class="tags-page-name">{{ tag.name }}</span>
+                    <span class="tags-page-count">{{ tag.products.count }} товаров</span>
+                </a>
+            </div>
+
+            <div class="tags-page-actions">
+                <a href="{% url 'edit_tag' tag.id %}" class="btn honey-btn-outline">
+                    <i class="fas fa-edit"></i> Редактировать
+                </a>
+                <a href="{% url 'delete_tag' tag.id %}" class="btn honey-btn-outline">
+                    <i class="fas fa-trash-alt"></i> Удалить
+                </a>
+            </div>
+        </li>
+        {% empty %}
+        <li>Тегов ещё нет.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

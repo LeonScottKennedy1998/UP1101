@@ -1,0 +1,27 @@
+<ul class="nav-list">
+    <a href="{% url 'catalog' %}">Главная</a>
+    <a href="{% url 'cart' %}">Корзина</a>
+    {% if user.is_authenticated %}
+      <a href="{% url 'order_list' %}">Заказы</a>
+    {% endif %}
+
+    {% if perms.firstproject.change_product %}
+      <a href="{% url 'product_manage' %}">Управление товарами</a>
+    {% endif %}
+
+    {% if perms.firstproject.add_category %}
+      <a href="{% url 'category_list' %}">Категории</a>
+    {% endif %}
+    {% if perms.firstproject.add_tag %}
+      <a href="{% url 'tag_list' %}">Теги</a>
+    {% endif %}
+
+    {% if user.is_authenticated %}
+        Привет, <strong>{{ user.username }}</strong>
+        ({{ user.groups.all|join:", " }})
+      <a href="{% url 'logout_page' %}">Выйти</a>
+    {% else %}
+      <a href="{% url 'login_page' %}">Войти</a>
+      <a href="{% url 'registration_page' %}">Зарегистрироваться</a>
+    {% endif %}
+  </ul>

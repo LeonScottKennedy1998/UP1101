@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="error-page">
+    <h1>403 — Доступ запрещён</h1>
+    <p>Извините, у вас нет доступа к этой части сайта. Возможно, ваша роль не позволяет выполнять эту операцию.</p>
+    {% if user.is_authenticated %}
+      <p>Вы зашли под пользователем <strong>{{ user.username }}</strong> (группы: {{ user.groups.all|join:", " }}).</p>
+    {% else %}
+      <p>Пожалуйста, <a href="{% url 'login_page' %}">войдите</a> или зарегистрируйтесь.</p>
+    {% endif %}
+    <a href="{% url 'catalog' %}" class="btn honey-btn-outline">Вернуться на главную</a>
+  </div>
+{% endblock %}

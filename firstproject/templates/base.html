@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Магазин Медятина{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    
+</head>
+<body>
+  <div class="wrapper">
+    <header>
+      {% include 'components/_header.html' %}
+    </header>
+
+    <main>
+      {% block content %}{% endblock %}
+    </main>
+
+    <footer class="bg-light text-center p-3">
+        {% include 'components/_footer.html' %}
+      </footer>
+  </div>
+</body>
+</html>

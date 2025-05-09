@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="catalog-header">
+    <h2>Каталог мёда</h2>
+    <div class="catalog-controls">
+        <div class="catalog-links">
+            <a href="{% url 'category_list' %}" class="btn honey-btn-outline">Категории</a>
+            <a href="{% url 'tag_list' %}" class="btn honey-btn-outline">Теги</a>
+        </div>
+    </div>
+</div>
+
+<div class="product-grid">
+    {% for product in products %}
+    <div class="product-item">
+        <div class="product-image-wrapper">
+            {% if product.image %}
+            <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+            {% else %}
+            <div class="no-image">Нет изображения</div>
+            {% endif %}
+        </div>
+        
+        <div class="product-info">
+            <h3 class="product-title">{{ product.name }}</h3>
+            <div class="product-meta">
+                <span class="product-category">
+                    <i class="fas fa-tag"></i> {{ product.category.name }}
+                </span>
+                <span class="product-price">
+                    {{ product.price }} ₽ / 500 г
+                </span>
+            </div>
+            
+            <p class="product-description">
+                {{ product.description|truncatechars:120 }}
+            </p>
+            
+            <div class="product-actions">
+                <a href="{% url 'product_detail' product.id %}" class="btn honey-btn">
+                    Подробнее <i class="fas fa-chevron-right"></i>
+                </a>
+                <a href="{% url 'add_to_cart' product.id %}" class="btn honey-btn-outline">
+                    <i class="fas fa-shopping-cart"></i> В корзину
+                </a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

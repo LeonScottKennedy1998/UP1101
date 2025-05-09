@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="categories-container">
+    <div class="categories-header">
+        <h2>Категории</h2>
+        <a href="{% url 'add_category' %}" class="btn honey-btn">
+            <i class="fas fa-plus"></i> Добавить категорию
+        </a>
+    </div>
+    
+    <ul class="categories-list">
+        {% for category in categories %}
+        <li class="category-item">
+            <div class="category-info">
+                <a href="{% url 'category_products' category.id %}" class="category-link">
+                    <span class="category-name">{{ category.name }}</span>
+                    <p class="category-description">{{ category.description|truncatechars:80 }}</p>
+                    <span class="category-count">{{ category.products.count }} товаров</span>
+                </a>
+            </div>
+            
+            <div class="category-actions">
+                <a href="{% url 'edit_category' category.id %}" class="btn honey-btn-outline">
+                    <i class="fas fa-edit"></i> Редактировать
+                </a>
+                <a href="{% url 'delete_category' category.id %}" class="btn honey-btn-outline">
+                    <i class="fas fa-trash-alt"></i> Удалить
+                </a>
+            </div>
+        </li>
+        {% empty %}
+        <li>Категорий ещё нет.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

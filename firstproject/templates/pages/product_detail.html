@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="product-detail-container">
+    <div class="product-detail-header">
+        <a href="{% url 'catalog' %}" class="btn honey-btn-outline">
+            <i class="fas fa-arrow-left"></i> Назад к каталогу
+        </a>
+        <h1 class="product-title">{{ product.name }}</h1>
+    </div>
+
+    <div class="product-content">
+        <div class="product-image-section">
+            {% if product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-main-image">
+            {% else %}
+                <div class="no-image-large">
+                    <i class="fas fa-image"></i>
+                    <p>Изображение отсутствует</p>
+                </div>
+            {% endif %}
+        </div>
+
+        <div class="product-info-section">
+            <div class="product-meta-block">
+                <div class="price-badge">
+                    <span class="price">{{ product.price }}</span>
+                    <span class="currency">₽</span>
+                </div>
+                
+                <div class="category-badge">
+                    <i class="fas fa-tag"></i>
+                    {{ product.category.name }}
+                </div>
+            </div>
+
+            <div class="product-description-block">
+                <h3>Описание</h3>
+                <p>{{ product.description }}</p>
+            </div>
+
+            <div class="product-tags-block">
+                <h3>Теги</h3>
+                <div class="tags-container">
+                    {% for tag in product.tags.all %}
+                        <a href="{% url 'tag_products' tag.id %}" class="tag-badge">
+                            {{ tag.name }}
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

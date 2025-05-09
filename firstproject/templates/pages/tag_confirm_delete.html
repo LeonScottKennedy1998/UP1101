@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="confirm-delete-page">
+    <h2>Удалить тег?</h2>
+    <p>Вы уверены, что хотите удалить тег «{{ object.name }}»?</p>
+    <form method="post">
+      {% csrf_token %}
+      <button type="submit" class="btn honey-btn">
+        <i class="fas fa-trash-alt"></i> Да, удалить
+      </button>
+      <a href="{% url 'tag_list' %}" class="btn honey-btn-outline">
+        Отмена
+      </a>
+    </form>
+  </div>
+{% endblock %}
